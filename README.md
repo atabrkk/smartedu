@@ -1,0 +1,1 @@
+# SmarEdu Project - Django
