@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Course
+from .models import Course, Category
 
 
 # Admin Decorator - Admin Paneli Kişiselleştirme
@@ -17,3 +17,9 @@ class CourseAdmin(admin.ModelAdmin):
         'description',
     )  # arama yapmak için
 
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {
+        'slug': ('name',)  # slug alanını name alanından alır ve otomatik slug oluşturur.
+    }

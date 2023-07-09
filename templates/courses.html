@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="course-br">
                                     <div class="course-title">
-                                        <h2><a href="#" title="">{{ course.name }}</a></h2>
+                                        <h2><a href="{% url 'course_detail' course.category.slug course.id %}" title="">{{ course.name }}</a></h2><!-- yönlendirelecek sayfaya ek 2 parametre alır. http://127.0.0.1:8000/courses/web-programming/3 -->
                                     </div>
                                     <div class="course-desc">
                                         <p>{{ course.description | truncatechars:140 }}</p>  <!-- 100 karakterden olan bir kısıtlama getidik. -->
