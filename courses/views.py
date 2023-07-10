@@ -23,3 +23,11 @@ def course_detail(request, category_slug, course_id):  # ekstra iki parametre da
         'course': course
     }
     return render(request, 'course.html', context)  # course.html yönlendirir
+
+
+def category_detail(request, category_slug):  # category_slug:URL'den gelen slug
+    courses = Course.objects.all().filter(category__slug=category_slug)  # Course tablosundan Categoryye ulaştık.
+    context = {
+        'courses': courses
+    }
+    return render(request, 'courses.html', context)  # courses.html gidip courseları getirir.
