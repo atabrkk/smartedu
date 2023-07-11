@@ -1,12 +1,16 @@
 from django.shortcuts import render
-from .models import Course  # Course modeli içeri aktardık
+from .models import Course, Category, Tag  # modelleri içeri aktardık
 
 
 # Tüm Kurslar
 def course_list(request):
     courses = Course.objects.all().order_by('-date')  # tüm kursları getirdik. date göre sıraladık. '-date': en son geleni en once getirir.
+    categories = Category.objects.all()  # tüm Category'leri getirdik
+    tags = Tag.objects.all()
     context = {
-        'courses': courses
+        'courses': courses,
+        'categories': categories,
+        'tags': tags
 
     }  # farklı bilgileride courses.html'de kullanmamız için sözlük içine atarız ve sözlük olarak göndeririz.
     return render(request, 'courses.html', context)  # courses.html yönlendirir
@@ -25,9 +29,25 @@ def course_detail(request, category_slug, course_id):  # ekstra iki parametre da
     return render(request, 'course.html', context)  # course.html yönlendirir
 
 
-def category_detail(request, category_slug):  # category_slug:URL'den gelen slug
+def category_list(request, category_slug):  # category_slug:URL'den gelen slug
     courses = Course.objects.all().filter(category__slug=category_slug)  # Course tablosundan Categoryye ulaştık.
+    categories = Category.objects.all()
+    tags = Tag.objects.all()
     context = {
-        'courses': courses
+        'courses': courses,
+        'categories': categories,
+        'tags': tags
+    }
+    return render(request, 'courses.html', context)  # courses.html gidip courseları getirir.
+
+
+def tag_list(request, tag_slug):
+    courses = Course.objects.all().filter(tags__slug=tag_slug)  # Course tablosundan Tag'e ulaşştık
+    categories = Category.objects.all()
+    tags = Tag.objects.all()
+    context = {
+        'courses': courses,
+        'categories': categories,
+        'tags': tags
     }
     return render(request, 'courses.html', context)  # courses.html gidip courseları getirir.
